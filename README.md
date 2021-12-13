@@ -49,5 +49,5 @@ It compliments a classic REST API server really well.
 - [x] Create webapp that uses formula1 graphql API
 - [x] Containerise webapp
 - [x] Make second webapp page
-- [ ] Kustomize deploy files
+- [x] Kustomize deploy files
 - [ ] Deploy to ghcr
