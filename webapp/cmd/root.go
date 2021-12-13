@@ -46,7 +46,7 @@ func run() error {
 	if host, ok := os.LookupEnv("GRAPHQL_EP"); ok {
 		hostAddress = host
 	}
-	c := client{host: hostAddress}
+	c := client{host: hostAddress, log: sugar}
 	http.HandleFunc("/drivers", c.driversStandings)
 	http.HandleFunc("/constructors", c.constructorsStandings)
 	addr := fmt.Sprintf(":%s", port)
