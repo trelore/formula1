@@ -1,0 +1,9 @@
+<h1>Constructors Standings</h1>
+
+<ul>
+    {{range .ConstructorStandings.Teams}}
+        <li>#{{.Position}} - {{.Points}} - <a href="{{.Team.URL}}">{{.Team.Name}}</a></li>
+    {{end}}
+</ul>
+
+<a href="/drivers">Drivers Standings</a>

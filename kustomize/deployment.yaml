@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: formulagraphql
+  labels:
+    app: formulagraphql
+spec:
+  selector:
+    matchLabels:
+      app: formulagraphql
+  template:
+    metadata:
+      labels:
+        app: formulagraphql
+    spec:
+      containers:
+      - name: service
+        image: ghcr.io/trelore/formulagraphql:latest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp
+  labels:
+    app: webapp
+spec:
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - name: service
+        image: ghcr.io/trelore/webapp:latest
