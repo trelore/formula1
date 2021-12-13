@@ -5,8 +5,10 @@ go 1.17
 require (
 	github.com/99designs/gqlgen v0.14.0
 	github.com/hasura/go-graphql-client v0.5.1
+	github.com/justinas/alice v1.2.0
 	github.com/spf13/cobra v1.2.1
 	github.com/vektah/gqlparser/v2 v2.2.0
+	go.uber.org/zap v1.17.0
 )
 
 require (
@@ -26,6 +28,8 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/urfave/cli/v2 v2.1.1 // indirect
 	github.com/vektah/dataloaden v0.2.1-0.20190515034641-a19b9a6e7c9e // indirect
+	go.uber.org/atomic v1.7.0 // indirect
+	go.uber.org/multierr v1.6.0 // indirect
 	golang.org/x/mod v0.4.2 // indirect
 	golang.org/x/net v0.0.0-20211205041911-012df41ee64c // indirect
 	golang.org/x/sys v0.0.0-20210510120138-977fb7262007 // indirect

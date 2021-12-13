@@ -11,7 +11,9 @@ import (
 	"time"
 
 	graphql "github.com/hasura/go-graphql-client"
+	"github.com/justinas/alice"
 	"github.com/spf13/cobra"
+	"go.uber.org/zap"
 )
 
 const port = "8081"
@@ -33,6 +35,13 @@ var rootCmd = &cobra.Command{
 }
 
 func run() error {
+	logger, err := zap.NewProduction()
+	if err != nil {
+		return fmt.Errorf("new logger: %w", err)
+	}
+	defer logger.Sync() // flushes buffer, if any
+	sugar := logger.Sugar()
+
 	hostAddress := "http://localhost:8080/query"
 	if host, ok := os.LookupEnv("GRAPHQL_EP"); ok {
 		hostAddress = host
@@ -41,12 +50,28 @@ func run() error {
 	http.HandleFunc("/drivers", c.driversStandings)
 	http.HandleFunc("/constructors", c.constructorsStandings)
 	addr := fmt.Sprintf(":%s", port)
-	log.Printf("running on address: %s", addr)
-	return http.ListenAndServe(addr, nil)
+	sugar.Infof("running on address: %s", addr)
+	return http.ListenAndServe(addr, alice.New(
+		logging(sugar),
+	).Then(nil))
+	// return http.ListenAndServe(addr, nil)
+}
+
+func logging(log *zap.SugaredLogger) func(http.Handler) http.Handler {
+	return func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			next.ServeHTTP(w, r)
+			log.Infow("request",
+				"method", r.Method,
+				"path", r.URL.EscapedPath(),
+			)
+		})
+	}
 }
 
 type client struct {
 	host string
+	log  *zap.SugaredLogger
 }
 
 var driversQuery struct {
@@ -65,6 +90,9 @@ func (c *client) driversStandings(w http.ResponseWriter, r *http.Request) {
 	client := graphql.NewClient(c.host, &http.Client{Timeout: 10 * time.Second})
 	err := client.Query(context.Background(), &driversQuery, nil)
 	if err != nil {
+		c.log.Warnw("getting drivers standings",
+			"err", err.Error(),
+		)
 		w.WriteHeader(http.StatusInternalServerError)
 	}
 
@@ -88,6 +116,9 @@ func (c *client) constructorsStandings(w http.ResponseWriter, r *http.Request) {
 	client := graphql.NewClient(c.host, &http.Client{Timeout: 10 * time.Second})
 	err := client.Query(context.Background(), &constructorsQuery, nil)
 	if err != nil {
+		c.log.Warnw("getting drivers standings",
+			"err", err.Error(),
+		)
 		w.WriteHeader(http.StatusInternalServerError)
 	}
 
