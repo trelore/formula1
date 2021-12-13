@@ -7,6 +7,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	graphql "github.com/hasura/go-graphql-client"
@@ -32,7 +33,11 @@ var rootCmd = &cobra.Command{
 }
 
 func run() error {
-	c := client{host: "http://localhost:8080/query"}
+	hostAddress := "http://localhost:8080/query"
+	if host, ok := os.LookupEnv("GRAPHQL_EP"); ok {
+		hostAddress = host
+	}
+	c := client{host: hostAddress}
 	http.HandleFunc("/drivers", c.driversStandings)
 	http.HandleFunc("/constructors", c.constructorsStandings)
 	addr := fmt.Sprintf(":%s", port)

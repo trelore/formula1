@@ -50,4 +50,4 @@ It compliments a classic REST API server really well.
 - [x] Containerise webapp
 - [x] Make second webapp page
 - [x] Kustomize deploy files
-- [ ] Deploy to ghcr
+- [x] Deploy to ghcr

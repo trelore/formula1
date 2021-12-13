@@ -35,3 +35,6 @@ spec:
       containers:
       - name: service
         image: ghcr.io/trelore/webapp:latest
+        env:
+          - name: GRAPHQL_EP
+            value: "http://formulagraphql.f1:8080/query"
