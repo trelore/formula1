@@ -3,23 +3,25 @@ kind: Service
 metadata:
   name: formulagraphql
   labels:
-    run: formulagraphql
+    app: formulagraphql
 spec:
   ports:
   - port: 8080
+    targetPort: 8080
     protocol: TCP
+    name: http
   selector:
-    run: formulagraphql
+    app: formulagraphql
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: webapp
   labels:
-    run: webapp
+    app: webapp
 spec:
   ports:
   - port: 8081
     protocol: TCP
   selector:
-    run: webapp
+    app: webapp

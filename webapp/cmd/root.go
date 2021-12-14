@@ -11,7 +11,6 @@ import (
 	"time"
 
 	graphql "github.com/hasura/go-graphql-client"
-	"github.com/justinas/alice"
 	"github.com/spf13/cobra"
 	"go.uber.org/zap"
 )
@@ -51,22 +50,7 @@ func run() error {
 	http.HandleFunc("/constructors", c.constructorsStandings)
 	addr := fmt.Sprintf(":%s", port)
 	sugar.Infof("running on address: %s", addr)
-	return http.ListenAndServe(addr, alice.New(
-		logging(sugar),
-	).Then(nil))
-	// return http.ListenAndServe(addr, nil)
-}
-
-func logging(log *zap.SugaredLogger) func(http.Handler) http.Handler {
-	return func(next http.Handler) http.Handler {
-		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			next.ServeHTTP(w, r)
-			log.Infow("request",
-				"method", r.Method,
-				"path", r.URL.EscapedPath(),
-			)
-		})
-	}
+	return http.ListenAndServe(addr, nil)
 }
 
 type client struct {

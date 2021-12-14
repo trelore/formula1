@@ -5,7 +5,6 @@ go 1.17
 require (
 	github.com/99designs/gqlgen v0.14.0
 	github.com/hasura/go-graphql-client v0.5.1
-	github.com/justinas/alice v1.2.0
 	github.com/spf13/cobra v1.2.1
 	github.com/vektah/gqlparser/v2 v2.2.0
 	go.uber.org/zap v1.17.0
