@@ -10,7 +10,7 @@ Goals:
 To run this
 
 ```sh
-go run server.go
+go run formulagraphql/server.go
 ```
 
 and open a browser to localhost:8080.

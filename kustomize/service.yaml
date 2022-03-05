@@ -19,6 +19,8 @@ metadata:
   name: webapp
   labels:
     app: webapp
+  annotations:
+    dev.okteto.com/auto-ingress: "webapp"
 spec:
   ports:
   - port: 8081
