@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: formulagraphql
-  namespace: f1
   labels:
     app: formulagraphql
 spec:
@@ -26,7 +25,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: webapp
-  namespace: f1
   labels:
     app: webapp
 spec:
