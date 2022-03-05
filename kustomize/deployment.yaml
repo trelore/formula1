@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: formulagraphql
+  namespace: f1
   labels:
     app: formulagraphql
 spec:
@@ -16,11 +17,16 @@ spec:
       containers:
       - name: service
         image: ghcr.io/trelore/formulagraphql:latest
+        imagePullPolicy: Never
+        env:
+          - name: OC_AGENT_HOST
+            value: "collector.linkerd-jaeger:55678"
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: webapp
+  namespace: f1
   labels:
     app: webapp
 spec:
@@ -35,6 +41,9 @@ spec:
       containers:
       - name: service
         image: ghcr.io/trelore/webapp:latest
+        imagePullPolicy: Never
         env:
           - name: GRAPHQL_EP
             value: "http://formulagraphql.f1:8080/query"
+          - name: OC_AGENT_HOST
+            value: "collector.linkerd-jaeger:55678"

@@ -45,9 +45,7 @@ It compliments a classic REST API server really well.
 
 # Agenda
 
-- [x] Containerise the formula1 graphql API
-- [x] Create webapp that uses formula1 graphql API
-- [x] Containerise webapp
-- [x] Make second webapp page
-- [x] Kustomize deploy files
-- [x] Deploy to ghcr
+- [x] Create local cluster
+- [x] Deploy some services (formula1)
+- [ ] Install Chaos Mesh
+- [ ] Follow quick start guide
