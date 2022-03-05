@@ -42,6 +42,6 @@ spec:
         imagePullPolicy: Never
         env:
           - name: GRAPHQL_EP
-            value: "http://formulagraphql.f1:8080/query"
+            value: "http://formulagraphql:8080/query"
           - name: OC_AGENT_HOST
             value: "collector.linkerd-jaeger:55678"
