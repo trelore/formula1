@@ -64,6 +64,10 @@ jobs:
     - name: checkout
       uses: actions/checkout@master
 
+    - uses: okteto/context@latest
+      with:
+        token: ${{ secrets.OKTETO_TOKEN }}
+
     - name: "Deploy the preview environment"
       uses: okteto/deploy-preview@latest
       env:
@@ -100,6 +104,10 @@ jobs:
     needs: [ e2e-test ]
     runs-on: ubuntu-latest
     steps:
+    - uses: okteto/context@latest
+      with:
+        token: ${{ secrets.OKTETO_TOKEN }}
+
     - name: "Delete the previews preview environment"
       uses: okteto/destroy-preview@latest
       with:
