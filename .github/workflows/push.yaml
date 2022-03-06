@@ -57,7 +57,7 @@ jobs:
           tags: ghcr.io/trelore/webapp:latest
           file: webapp/Dockerfile
 
-  preview-okteto:
+  deploy-okteto:
     needs: [ build-publish ]
     runs-on: ubuntu-latest
     steps:
@@ -68,15 +68,19 @@ jobs:
       with:
         token: ${{ secrets.OKTETO_TOKEN }}
 
-    - name: "Deploy the preview environment"
-      uses: okteto/deploy-preview@latest
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: "Activate Namespace"
+      uses: okteto/namespace@latest
       with:
-        name: e2e-trelore
+        name: trelore
+
+    - name: "Trigger the pipeline"
+      uses: okteto/pipeline@latest
+      with:
+        name: main
+        timeout: 8m
 
   e2e-test:
-    needs: [ preview-okteto ]
+    needs: [ deploy-okteto ]
     defaults:
       run:
         working-directory: e2e-tests
@@ -108,7 +112,12 @@ jobs:
       with:
         token: ${{ secrets.OKTETO_TOKEN }}
 
-    - name: "Delete the previews preview environment"
-      uses: okteto/destroy-preview@latest
+    - name: "Activate Namespace"
+      uses: okteto/namespace@latest
       with:
-        name: e2e-trelore
+        name: trelore
+
+    - name: "Destroy the pipeline"
+      uses: okteto/destroy-pipeline@latest
+      with:
+        name: main
