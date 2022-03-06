@@ -1,7 +1,7 @@
-const { test, expect } = require('@playwright/test');
+// const { test, expect } = require('@playwright/test');
 
 test('test basic flow', async ({ page, baseURL }) => {
-  // Go to https://webapp-trelore.cloud.okteto.net/constructors
+  // Go to baseURL + /constructors
   await page.goto(baseURL + '/constructors');
 
   // Click text=Drivers Standings
