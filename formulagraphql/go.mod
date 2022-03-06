@@ -11,30 +11,30 @@ require (
 )
 
 require (
-	github.com/agnivade/levenshtein v1.1.0 // indirect
-	github.com/census-instrumentation/opencensus-proto v0.2.1 // indirect
+	github.com/agnivade/levenshtein v1.1.1 // indirect
+	github.com/census-instrumentation/opencensus-proto v0.3.0 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.1 // indirect
-	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect
-	github.com/golang/protobuf v1.4.3 // indirect
-	github.com/gorilla/websocket v1.4.2 // indirect
-	github.com/grpc-ecosystem/grpc-gateway v1.14.6 // indirect
-	github.com/hashicorp/golang-lru v0.5.1 // indirect
-	github.com/matryer/moq v0.2.3 // indirect
-	github.com/mitchellh/mapstructure v1.2.3 // indirect
+	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
+	github.com/golang/protobuf v1.5.2 // indirect
+	github.com/gorilla/websocket v1.5.0 // indirect
+	github.com/grpc-ecosystem/grpc-gateway v1.16.0 // indirect
+	github.com/hashicorp/golang-lru v0.5.4 // indirect
+	github.com/matryer/moq v0.2.5 // indirect
+	github.com/mitchellh/mapstructure v1.4.3 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/urfave/cli/v2 v2.3.0 // indirect
-	go.uber.org/atomic v1.7.0 // indirect
-	go.uber.org/multierr v1.6.0 // indirect
+	go.uber.org/atomic v1.9.0 // indirect
+	go.uber.org/multierr v1.8.0 // indirect
 	golang.org/x/mod v0.5.1 // indirect
-	golang.org/x/net v0.0.0-20211015210444-4f30a5c0130f // indirect
+	golang.org/x/net v0.0.0-20220225172249-27dd8689420f // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
-	golang.org/x/sys v0.0.0-20211019181941-9d821ace8654 // indirect
+	golang.org/x/sys v0.0.0-20220227234510-4e6760a101f9 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/tools v0.1.9 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
-	google.golang.org/api v0.25.0 // indirect
-	google.golang.org/genproto v0.0.0-20200527145253-8367513e4ece // indirect
-	google.golang.org/grpc v1.33.2 // indirect
-	google.golang.org/protobuf v1.25.0 // indirect
-	gopkg.in/yaml.v2 v2.2.8 // indirect
+	google.golang.org/api v0.70.0 // indirect
+	google.golang.org/genproto v0.0.0-20220304144024-325a89244dc8 // indirect
+	google.golang.org/grpc v1.44.0 // indirect
+	google.golang.org/protobuf v1.27.1 // indirect
+	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
