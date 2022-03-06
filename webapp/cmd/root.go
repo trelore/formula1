@@ -76,7 +76,7 @@ func run() error {
 	handle("/drivers", c.driversStandings)
 	handle("/constructors", c.constructorsStandings)
 	addr := fmt.Sprintf(":%s", port)
-	sugar.Infof("running on address: %s", addr)
+	sugar.Infof("running on port: %s", addr)
 	return http.ListenAndServe(addr, nil)
 }
 

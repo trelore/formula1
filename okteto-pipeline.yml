@@ -1,9 +1,7 @@
 icon: https://apps.okteto.com/movies/icon.png
 
 deploy:
-  - okteto build -t okteto.dev/formulagraphql:v0.1.0 formulagraphql
-  - okteto build -t okteto.dev/webapp:v0.1.0 webapp
   - kubectl apply -k kustomize
-# devs:
-#   - formulagraphql/okteto.yml
-#   - webapp/okteto.yml
+devs:
+  - formulagraphql/okteto.yml
+  - webapp/okteto.yml
