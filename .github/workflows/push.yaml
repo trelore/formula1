@@ -57,8 +57,22 @@ jobs:
           tags: ghcr.io/trelore/webapp:latest
           file: webapp/Dockerfile
 
-  e2e-test:
+  preview-okteto:
     needs: [ build-publish ]
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@master
+
+    - name: "Deploy the preview environment"
+      uses: okteto/deploy-preview@latest
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        name: e2e-trelore
+
+  e2e-test:
+    needs: [ preview-okteto ]
     defaults:
       run:
         working-directory: e2e-tests
@@ -81,3 +95,12 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
+
+  destroy-okteto:
+    needs: [ e2e-test ]
+    runs-on: ubuntu-latest
+    steps:
+    - name: "Delete the previews preview environment"
+      uses: okteto/destroy-preview@latest
+      with:
+        name: e2e-trelore
