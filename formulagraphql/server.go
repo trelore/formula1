@@ -46,7 +46,7 @@ func logging(log *zap.SugaredLogger) func(http.Handler) http.Handler {
 func main() {
 	logger, err := zap.NewProduction()
 	if err != nil {
-		log.Fatalf("new logger: %w", err)
+		log.Fatalf("new logger: %v", err)
 	}
 	defer logger.Sync() // flushes buffer, if any
 	sugar := logger.Sugar()
