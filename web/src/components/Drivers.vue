@@ -1,17 +1,16 @@
 <template>
-  <form>
-    Year:
-    <input v-model="searchYear" placeholder="current" />
-    <button
-      class="btn btn-outline-primary"
-      v-on:click="searchByYear"
-      type="button"
-    >
-      Search
-    </button>
-  </form>
   <div class="apollo">
-    <p>{{ driversQuery }}</p>
+    <form>
+      Year:
+      <input v-model="searchYear" placeholder="current" />
+      <button
+        class="btn btn-outline-primary"
+        v-on:click="searchByYear"
+        type="button"
+      >
+        Search
+      </button>
+    </form>
     <p
       v-for="driver in driversQuery.DriverStandings?.drivers"
       :key="driver.Driver.code"
@@ -27,7 +26,6 @@
 
 <script>
 import gql from "graphql-tag";
-// import { useQuery } from "@vue/apollo-composable";
 
 const DRIVERS_QUERY = gql`
   query Drivers($year: String!) {
@@ -46,14 +44,12 @@ const DRIVERS_QUERY = gql`
 `;
 
 export default {
-  name: "App",
+  name: "Drivers-Component",
   apollo: {
     driversQuery: {
       query: DRIVERS_QUERY,
       variables() {
-        return {
-          year: this.year,
-        };
+        return { year: this.searchYear };
       },
     },
   },
@@ -61,12 +57,11 @@ export default {
     return {
       driversQuery: [],
       searchYear: "",
-      year: "current",
     };
   },
   methods: {
     searchByYear() {
-      this.year = this.searchYear;
+      this.$apollo.queries.driversQuery.refetch(this.searchYear);
     },
   },
 };

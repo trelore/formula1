@@ -1,4 +1,15 @@
 <template>
+  <form>
+    Year:
+    <input v-model="searchYear" placeholder="current" />
+    <button
+      class="btn btn-outline-primary"
+      v-on:click="searchByYear"
+      type="button"
+    >
+      Search
+    </button>
+  </form>
   <div class="apollo">
     <p v-if="error">Something went wrong...</p>
     <p v-if="loading">Loading...</p>
@@ -17,8 +28,8 @@ import gql from "graphql-tag";
 import { useQuery } from "@vue/apollo-composable";
 
 const CONSTRUCTORS_QUERY = gql`
-  query Constructors {
-    ConstructorStandings(filter: { year: "2018" }) {
+  query Constructors($year: String!) {
+    ConstructorStandings(filter: { year: $year }) {
       teams {
         points
         team {
@@ -32,14 +43,25 @@ const CONSTRUCTORS_QUERY = gql`
 `;
 
 export default {
-  name: "App",
-  setup() {
-    const { result, loading, error } = useQuery(CONSTRUCTORS_QUERY);
+  name: "Constructors-Component",
+  data() {
+    this.searchYear = "current";
+    console.log(this.searchYear);
+    const variables = { year: this.searchYear };
+    const { result, loading, error } = useQuery(CONSTRUCTORS_QUERY, variables);
     return {
       result,
       loading,
       error,
+      driversQuery: [],
+      searchYear: "",
+      year: "current",
     };
+  },
+  methods: {
+    searchByYear() {
+      this.year = this.searchYear;
+    },
   },
 };
 </script>

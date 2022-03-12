@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
@@ -12,6 +13,7 @@ import (
 	"github.com/trelore/formula1/formulagraphql/graph"
 	"github.com/trelore/formula1/formulagraphql/graph/generated"
 	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
 
 const defaultPort = "8080"
@@ -19,7 +21,14 @@ const defaultPort = "8080"
 func logging(log *zap.SugaredLogger) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			start := time.Now()
+
 			next.ServeHTTP(w, r)
+
+			log.Info("call", []zapcore.Field{
+				zap.String("latency", time.Since(start).String()),
+				zap.String("method", r.Method),
+			})
 		})
 	}
 }
