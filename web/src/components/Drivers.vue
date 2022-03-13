@@ -1,16 +1,14 @@
 <template>
   <div class="apollo">
-    <form>
-      Year:
-      <input v-model="searchYear" placeholder="current" />
-      <button
-        class="btn btn-outline-primary"
-        v-on:click="searchByYear"
-        type="button"
-      >
-        Search
-      </button>
-    </form>
+    Year:
+    <input
+      v-model="searchYear"
+      @keyup.enter="searchByYear"
+      placeholder="current"
+    />
+    <button @click="searchByYear" :disabled="!searchYear" type="button">
+      Search
+    </button>
     <p
       v-for="driver in driversQuery.DriverStandings?.drivers"
       :key="driver.Driver.code"
@@ -61,7 +59,9 @@ export default {
   },
   methods: {
     searchByYear() {
-      this.$apollo.queries.driversQuery.refetch(this.searchYear);
+      console.log(this);
+      console.log(this.searchYear);
+      this.$apollo.queries.driversQuery.refresh();
     },
   },
 };

@@ -2,11 +2,7 @@
   <form>
     Year:
     <input v-model="searchYear" placeholder="current" />
-    <button
-      class="btn btn-outline-primary"
-      v-on:click="searchByYear"
-      type="button"
-    >
+    <button class="btn btn-outline-primary" @click="refetch()" type="button">
       Search
     </button>
   </form>
@@ -45,23 +41,22 @@ const CONSTRUCTORS_QUERY = gql`
 export default {
   name: "Constructors-Component",
   data() {
-    this.searchYear = "current";
-    console.log(this.searchYear);
+    if (this.searchYear == null) {
+      this.searchYear = "current";
+    }
     const variables = { year: this.searchYear };
-    const { result, loading, error } = useQuery(CONSTRUCTORS_QUERY, variables);
+    const { result, loading, error, refetch } = useQuery(
+      CONSTRUCTORS_QUERY,
+      variables
+    );
     return {
       result,
       loading,
       error,
+      refetch,
       driversQuery: [],
       searchYear: "",
-      year: "current",
     };
-  },
-  methods: {
-    searchByYear() {
-      this.year = this.searchYear;
-    },
   },
 };
 </script>
