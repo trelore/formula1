@@ -4,9 +4,6 @@ on:
   push:
     branches: [ main ]
 
-env:
-  BASE_URL: https://webapp-trelore.cloud.okteto.net
-
 jobs:
   unit-test:
     runs-on: ubuntu-latest
@@ -87,6 +84,8 @@ jobs:
     defaults:
       run:
         working-directory: e2e-tests
+    env:
+      BASE_URL: https://webapp-trelore.cloud.okteto.net
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
