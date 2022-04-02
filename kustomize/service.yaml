@@ -23,7 +23,7 @@ metadata:
     dev.okteto.com/auto-ingress: "web"
 spec:
   ports:
-  - port: 8081
+  - port: 8080
     protocol: TCP
   selector:
     app: web
