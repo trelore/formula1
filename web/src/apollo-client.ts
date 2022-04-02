@@ -4,7 +4,7 @@ import { logErrorMessages } from "@vue/apollo-util";
 
 // Create an http link:
 const httpLink = new HttpLink({
-  uri: process.env.GRAPHQL_EP || "http://localhost:8080/query",
+  uri: process.env.VUE_APP_GRAPHQL_EP || "http://localhost:8080/query",
   fetch: (uri: RequestInfo, options: RequestInit) => {
     return fetch(uri, options);
   },

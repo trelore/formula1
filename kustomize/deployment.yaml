@@ -38,5 +38,5 @@ spec:
         image: ghcr.io/trelore/web:latest
         imagePullPolicy: Never
         env:
-          - name: GRAPHQL_EP
+          - name: VUE_APP_GRAPHQL_EP
             value: "http://formulagraphql:8080/query"
