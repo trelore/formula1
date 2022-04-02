@@ -45,14 +45,6 @@ jobs:
           push: true
           tags: ghcr.io/trelore/formulagraphql:latest
           file: formulagraphql/Dockerfile
-      - name: Build and push (webapp)
-        id: docker_build_webapp
-        uses: docker/build-push-action@v2
-        with:
-          context: ./webapp
-          push: true
-          tags: ghcr.io/trelore/webapp:latest
-          file: webapp/Dockerfile
 
   deploy-okteto:
     needs: [ build-publish ]
