@@ -1,7 +1,7 @@
 name: formulagraphql
 selector:
   app: formulagraphql
-image: okteto/golang:1
+image: ghcr.io/trelore/formulagraphql:latest
 command: bash
 securityContext:
   capabilities:

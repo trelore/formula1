@@ -4,4 +4,4 @@ deploy:
   - kubectl apply -k kustomize
 devs:
   - formulagraphql/okteto.yml
-  - webapp/okteto.yml
+  - web/okteto.yml

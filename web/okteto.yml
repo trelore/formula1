@@ -1,0 +1,8 @@
+name: web
+command: make deps run
+image: ghcr.io/trelore/web:latest
+workdir: /src
+sync:
+  - .:/src
+persistentVolume:
+  enabled: true
