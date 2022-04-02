@@ -1,14 +1,18 @@
-// const { test, expect } = require('@playwright/test');
+const { test, expect, chromium } = require('@playwright/test');
+test('test', async ({ page, baseURL }) => {
 
-test('test basic flow', async ({ page, baseURL }) => {
-  // Go to baseURL + /constructors
-  await page.goto(baseURL + '/constructors');
+  // Go to http://localhost:8081/
+  await page.goto(baseURL);
 
-  // Click text=Drivers Standings
-  await page.click('text=Drivers Standings');
+  // Click text=Constructors
+  await page.click('text=Constructors');
+  await page.waitForURL("**/constructors");
+  expect(page.url()).toBe(baseURL + '/constructors');
+  
+  // Click text=Drivers
+  await page.click('text=Drivers');
+  await page.waitForURL("**/drivers");
   expect(page.url()).toBe(baseURL + '/drivers');
 
-  // Click text=Constructors Standings
-  await page.click('text=Constructors Standings');
-  expect(page.url()).toBe(baseURL + '/constructors');
-})
+});
+

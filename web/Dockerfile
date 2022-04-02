@@ -1,8 +1,12 @@
-FROM golang:1.18 AS builder
-WORKDIR /go/src/github.com/trelore/formula1/webapp
-COPY . /go/src/github.com/trelore/formula1/webapp
-RUN CGO_ENABLED=0 GOOS=linux go build -o app .
+FROM node:16-alpine AS builder
+WORKDIR /src
+COPY package.json ./
+COPY tsconfig.json ./
+RUN yarn install
+COPY ./src ./src
+RUN yarn build
 
-FROM gcr.io/distroless/base
-COPY --from=builder /go/src/github.com/trelore/formula1/webapp/app ./app
-CMD ["./app"]
+FROM nginx:1.21-alpine
+COPY --from=builder /src/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 8080
