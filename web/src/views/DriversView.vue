@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>Drivers standings</h1>
+    <h1>Drivers Standings</h1>
   </div>
   <Drivers />
 </template>

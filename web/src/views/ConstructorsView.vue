@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>Constructors standings</h1>
+    <h1>Constructors Standings</h1>
   </div>
   <Constructors />
 </template>

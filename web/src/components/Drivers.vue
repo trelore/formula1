@@ -1,16 +1,12 @@
 <template>
+  Year:
+  <input v-model.lazy="variables.year" placeholder="current" />
   <div class="apollo">
-    Year:
-    <input
-      v-model="searchYear"
-      @keyup.enter="searchByYear"
-      placeholder="current"
-    />
-    <button @click="searchByYear" :disabled="!searchYear" type="button">
-      Search
-    </button>
+    <p v-if="error">Something went wrong...</p>
+    <p v-if="loading">Loading...</p>
     <p
-      v-for="driver in driversQuery.DriverStandings?.drivers"
+      v-else
+      v-for="driver in result.DriverStandings.drivers"
       :key="driver.Driver.code"
     >
       {{ driver.points }}
@@ -24,6 +20,7 @@
 
 <script>
 import gql from "graphql-tag";
+import { useQuery } from "@vue/apollo-composable";
 
 const DRIVERS_QUERY = gql`
   query Drivers($year: String!) {
@@ -43,26 +40,19 @@ const DRIVERS_QUERY = gql`
 
 export default {
   name: "Drivers-Component",
-  apollo: {
-    driversQuery: {
-      query: DRIVERS_QUERY,
-      variables() {
-        return { year: this.searchYear };
-      },
-    },
-  },
-  data() {
+  setup() {
+    const initVariables = { year: "current" };
+    const { result, loading, error, refetch, variables } = useQuery(
+      DRIVERS_QUERY,
+      initVariables
+    );
     return {
-      driversQuery: [],
-      searchYear: "",
+      result,
+      loading,
+      error,
+      refetch,
+      variables,
     };
-  },
-  methods: {
-    searchByYear() {
-      console.log(this);
-      console.log(this.searchYear);
-      this.$apollo.queries.driversQuery.refresh();
-    },
   },
 };
 </script>

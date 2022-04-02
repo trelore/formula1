@@ -1,11 +1,6 @@
 <template>
-  <form>
-    Year:
-    <input v-model="searchYear" placeholder="current" />
-    <button class="btn btn-outline-primary" @click="refetch()" type="button">
-      Search
-    </button>
-  </form>
+  Year:
+  <input v-model.lazy="variables.year" placeholder="current" />
   <div class="apollo">
     <p v-if="error">Something went wrong...</p>
     <p v-if="loading">Loading...</p>
@@ -40,22 +35,17 @@ const CONSTRUCTORS_QUERY = gql`
 
 export default {
   name: "Constructors-Component",
-  data() {
-    if (this.searchYear == null) {
-      this.searchYear = "current";
-    }
-    const variables = { year: this.searchYear };
-    const { result, loading, error, refetch } = useQuery(
+  setup() {
+    const { result, loading, error, refetch, variables } = useQuery(
       CONSTRUCTORS_QUERY,
-      variables
+      { year: "current" }
     );
     return {
       result,
       loading,
       error,
       refetch,
-      driversQuery: [],
-      searchYear: "",
+      variables,
     };
   },
 };
