@@ -16,14 +16,14 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: webapp
+  name: web
   labels:
-    app: webapp
+    app: web
   annotations:
-    dev.okteto.com/auto-ingress: "webapp"
+    dev.okteto.com/auto-ingress: "web"
 spec:
   ports:
   - port: 8081
     protocol: TCP
   selector:
-    app: webapp
+    app: web
