@@ -18,9 +18,6 @@ jobs:
       - name: Test backend
         run: cd formulagraphql && go test -v ./...
 
-      - name: Test frontend
-        run: cd webapp && go test -v ./...
-
   build-publish:
     runs-on: ubuntu-latest
     needs: [ unit-test ]
